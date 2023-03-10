@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { Pokemon } from '.prisma/client';
 
 @Controller('pokemon')
 export class PokemonController {
@@ -8,13 +9,24 @@ export class PokemonController {
       name: 'Pikachu',
       type: 'Electric',
       abilities: ['Static', 'Lightning Rod'],
-      stats: {
-        hp: 35,
-        attack: 55,
-        defense: 40,
-        speed: 90,
-      },
+      level: 1,
     };
     return pokemon;
+  }
+
+  @Get('/byType/:typeName')
+  async getPokemonsByType(
+    @Param('typeName') typeName: string,
+  ): Promise<Pokemon[]> {
+    const pokemons = [
+      {
+        id: 1,
+        name: 'Pikachu',
+        type: 'Electric',
+        abilities: ['Static', 'Lightning Rod'],
+        level: 1,
+      },
+    ];
+    return pokemons;
   }
 }

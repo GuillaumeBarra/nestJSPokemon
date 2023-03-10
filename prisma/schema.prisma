@@ -13,6 +13,15 @@ datasource db {
 // prisma/schema.prisma
 
 model Pokemon {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  abilities String[]
+  level     Int      @default(1)
+  types     Type[]   @relation("PokemonType")
+}
+
+model Type {
+  id       Int       @id @default(autoincrement())
+  type     String    @unique
+  pokemons Pokemon[] @relation("PokemonType")
 }
